@@ -1,4 +1,4 @@
-module SpreeRbkCheckout
+module Spree::RbkCheckout
   module Generators
     class InstallGenerator < Rails::Generators::Base
 

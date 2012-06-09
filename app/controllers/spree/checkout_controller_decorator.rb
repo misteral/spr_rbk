@@ -10,8 +10,8 @@ module Spree
 
     def rbk_checkout_success
       @order = Order.find_by_number!(params[:cart_order_id])
-      rbk_checkout_validate
-      payment = @order.payments.create(:amount => @order.total, :payment_method => @order.payment_method)
+      #rbk_checkout_validate
+      payment = @order.payments.create(:amount => @order.total, :payment_method_id => @order.payment_method)
       payment.started_processing
       payment.complete!
       @order.state='complete'
@@ -29,7 +29,7 @@ module Spree
      payment_method = PaymentMethod.find(params[:order][:payments_attributes].first[:payment_method_id])
      if payment_method.kind_of?(BillingIntegration::RbkCheckout)
        load_order
-       @order.payments.create(:amount => @order.total, :payment_method => payment_method)
+       @order.payments.create(:amount => @order.total, :payment_method_id => payment_method)
        redirect_to(rbk_checkout_payment_order_checkout_url(@order, :payment_method_id => payment_method))
      end
     end
