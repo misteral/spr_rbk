@@ -1,16 +1,16 @@
 module Spree
   CheckoutController.class_eval do
     skip_before_filter :verify_authenticity_token
-    before_filter :two_checkout_hook, :only => [:update]
+    before_filter :rbk_checkout_hook, :only => [:update]
 
-    def two_checkout_payment
+    def rbk_checkout_payment
        payment_method =  PaymentMethod.find(params[:payment_method_id])
        load_order
     end
 
-    def two_checkout_success
+    def rbk_checkout_success
       @order = Order.find_by_number!(params[:cart_order_id])
-      two_checkout_validate
+      rbk_checkout_validate
       payment = @order.payments.create(:amount => @order.total, :payment_method => @order.payment_method)
       payment.started_processing
       payment.complete!
@@ -23,18 +23,18 @@ module Spree
 
     private
 
-    def two_checkout_hook
+    def rbk_checkout_hook
      return unless (params[:state] == "payment")
      return unless params[:order][:payments_attributes]
      payment_method = PaymentMethod.find(params[:order][:payments_attributes].first[:payment_method_id])
-     if payment_method.kind_of?(BillingIntegration::TwoCheckout)
+     if payment_method.kind_of?(BillingIntegration::RbkCheckout)
        load_order
        @order.payments.create(:amount => @order.total, :payment_method => payment_method)
-       redirect_to(two_checkout_payment_order_checkout_url(@order, :payment_method_id => payment_method))
+       redirect_to(rbk_checkout_payment_order_checkout_url(@order, :payment_method_id => payment_method))
      end
     end
 
-    def two_checkout_validate
+    def rbk_checkout_validate
       pm=@order.payment_method
       if pm.preferred(:test_mode) == true
         order_number = 1

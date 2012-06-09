@@ -3,15 +3,15 @@ Spree::Core::Engine.routes.draw do
   resources :orders do
     resource :checkout, :controller => 'checkout' do
       member do
-        get :two_checkout_payment
-        get :two_checkout_success
-        post :two_checkout_success
+        get :rbk_checkout_payment
+        get :rbk_checkout_success
+        post :rbk_checkout_success
       end
     end
   end
 
   # Add your extension routes here
-  match '/two_checkout/success/' => 'checkout#two_checkout_success', :as => :two_checkout_success
-   # get '/two_checkout/success/' => 'checkout#two_checkout_success', :as => :two_checkout_success
-   #  post '/two_checkout/success/' => 'checkout#two_checkout_success', :as => :two_checkout_success
+  match '/rbk_checkout/success/' => 'checkout#rbk_checkout_success', :as => :rbk_checkout_success
+   # get '/rbk_checkout/success/' => 'checkout#rbk_checkout_success', :as => :rbk_checkout_success
+   #  post '/rbk_checkout/success/' => 'checkout#rbk_checkout_success', :as => :rbk_checkout_success
 end

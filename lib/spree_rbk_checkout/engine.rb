@@ -1,6 +1,6 @@
-module SpreeTwoCheckout
+module SpreeRbkCheckout
   class Engine < Rails::Engine
-    engine_name 'spree_two_checkout'
+    engine_name 'spree_rbk_checkout'
 
     config.autoload_paths += %W(#{config.root}/lib)
 
@@ -19,7 +19,7 @@ module SpreeTwoCheckout
 
     initializer "spree_skrill.register.payment_methods", :after => 'spree.register.payment_methods' do |app|
       app.config.spree.payment_methods += [
-        Spree::BillingIntegration::TwoCheckout
+        Spree::BillingIntegration::RbkCheckout
       ]
 
     end
