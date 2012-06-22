@@ -1,15 +1,15 @@
-<p> Отсюда пойдем на РБК, но не сейчас</p>
-<form method="POST" action="<%= rbk_checkout_success_url %>">
-  <%= hidden_field_tag :cart_order_id, @order.number %>
-  <input type="submit" name="send_form" value="Submit">
-</form>
+<!--<p> Отсюда пойдем на РБК, но не сейчас</p>-->
+<!--<form method="POST" action="<%= rbk_checkout_success_url %>">-->
+  <!--<%= hidden_field_tag :cart_order_id, @order.number %>-->
+  <!--<input type="submit" name="send_form" value="Submit">-->
+<!--</form>-->
 
 
 
 
 <% pm=@order.payment_method %>
     <form method="POST" id='paymentForm' action="https://rbkmoney.ru/acceptpurchase.aspx">
-      <%= hidden_field_tag :eshopId, pm.preferred(:sid) %>
+      <%= hidden_field_tag :eshopId, 'RU498322610' %>
       <%= hidden_field_tag :orderId, @order.number %>
       <%= hidden_field_tag :recipentAmount, '%.2f' % @order.total %>
       <%= hidden_field_tag :recipentCurrency, 'RUR' %>
@@ -55,5 +55,5 @@
     </form>
 
  <script type="text/javascript">
-//     $('#paymentForm').submit();
+     $('#paymentForm').submit();
  </script>

@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_rbk_checkout'
-  s.version     = '1.1.1'
+  s.version     = '1.1.2'
   s.summary     = 'Spr rbk Payment Module'
   s.description = 'Spr rbk Payment Module'
   s.required_ruby_version = '>= 1.9.1'
